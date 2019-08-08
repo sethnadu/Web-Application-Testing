@@ -75,10 +75,10 @@ class Dashboard extends React.Component {
                  <h2>At Bat</h2>
                 <Display balls = {this.state.balls} strikes = {this.state.strikes} />
                 <div>
-                <button onClick ={this.handleBallSubmit}>Ball</button>
-                <button onClick ={this.handleStrikeSubmit}>Strike</button>
-                <button onClick ={this.handleFoulSubmit}>Foul</button>
-                <button onClick ={this.handleHitSubmit}>Hit</button>
+                <button data-testid="ball-button" onClick ={this.handleBallSubmit}>Ball</button>
+                <button data-testid="strike-button" onClick ={this.handleStrikeSubmit}>Strike</button>
+                <button data-testid="foul-button" onClick ={this.handleFoulSubmit}>Foul</button>
+                <button data-testid="hit-button" onClick ={this.handleHitSubmit}>Hit</button>
                 </div>
             </Container>
         )

@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Display from "./Components/display.js";
 import Dashboard from "./Components/dashboard.js";
-import { render } from "@testing-library/react";
-import "@testing-library/react/cleanup-after-each";
+import { render, getByTestId, fireEvent, getByText } from "@testing-library/react";
+// import { toBe } from "@testing-library/jest-dom";
+
+
 
 describe('App />', () => {
 it('renders without crashing', () => {
@@ -15,30 +16,69 @@ it('renders without crashing', () => {
 })
 
 
-describe("<Display />", () => {
-  it('renders info starting at 0', () => {
-  const info = {strike: 0, balls: 0}
-  const display = render(<Display info = {info} />)
- 
-  const strikes = display.getByTestId("strikes")
-  const balls = display.getByTestId("balls")
+it("strike button works", () => {
+  const { container } = render(<Dashboard />);
+  const strikes = getByTestId(container, "strike");
+  const balls = getByTestId(container, "ball");
+  const stikeButton = getByTestId(container, "strike-button");
+  expect(strikes.textContent).toBe("0");
+  fireEvent.click(stikeButton);
+  expect(strikes.textContent).toBe("1");
+  fireEvent.click(stikeButton);
+  expect(strikes.textContent).toBe("2");
+  fireEvent.click(stikeButton);
+  expect(strikes.textContent).toBe("0");
+  expect(balls.textContent).toBe("0");
+});
 
-  expect(strikes).toEqual();
-  expect(balls).toEqual();
-   });
+it("ball button works", () => {
+  const { container } = render(<Dashboard />);
+  const balls = getByTestId(container, "ball");
+  const strikes = getByTestId(container, "strike");
+  const ballButton = getByTestId(container, "ball-button");
+  expect(balls.textContent).toBe("0");
+  fireEvent.click(ballButton);
+  expect(balls.textContent).toBe("1");
+  fireEvent.click(ballButton);
+  expect(balls.textContent).toBe("2");
+  fireEvent.click(ballButton);
+  expect(balls.textContent).toBe("3");
+  fireEvent.click(ballButton);
+  expect(balls.textContent).toBe("0");
+  expect(strikes.textContent).toBe("0");
+});
+
+it("foul button works", () => {
+  const { container } = render(<Dashboard />);
+  const strikes = getByTestId(container, "strike");
+  const foulButton = getByTestId(container, "foul-button");
+  expect(strikes.textContent).toBe("0");
+  fireEvent.click(foulButton);
+  expect(strikes.textContent).toBe("1");
+  fireEvent.click(foulButton);
+  expect(strikes.textContent).toBe("2");
+  fireEvent.click(foulButton);
+  expect(strikes.textContent).toBe("2");
+  
+});
+
+it("hit button works", () => {
+  const { container } = render(<Dashboard />);
+  const strikes = getByTestId(container, "strike");
+  const balls = getByTestId(container, "ball");
+  const hitButton = getByTestId(container, "hit-button");
+  fireEvent.click(hitButton);
+  expect(strikes.textContent).toBe("0");
+  expect(balls.textContent).toBe("0");
+  fireEvent.click(hitButton);
+  expect(strikes.textContent).toBe("0");
+  expect(balls.textContent).toBe("0");
+  
+});
+
+it("element test works", () => {
+  const {container} = render(<Dashboard />);
+  const titleText = getByText(container, ("at bat", {exact: false}))
+
+  expect(titleText).toBe("at bat")
 })
-
-
-
-
-
-
-
-// describe("dashboard.js", () => {
-//   describe("handleBallSubmit()", () => {
-//     it("should return the ball info", () => {
-//       expect(handleBallSubmit())
-//     })
-    
-//   })
-// });

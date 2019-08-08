@@ -9,21 +9,26 @@ const Container = Styled.div `
 `
 const EachContainer = Styled.div `
     margin: 20px;
-    width: 50px;
-    height: 80px;
-    border: 2px solid black;
+    align-items: center;
 `
 
 function Display({balls, strikes})  {
     console.log(balls)
         return (
             <Container>
-                <EachContainer data-testid="balls">
-                 {balls}
+                <EachContainer  >
+                    <div data-testid="ball">
+                    {balls}
+                     </div>
+                     
                 </EachContainer>
-                <EachContainer data-testid="strikes">
-                 {strikes}
+                <p>Balls</p>
+                <EachContainer  >
+                    <div data-testid="strike">
+                    {strikes}
+                     </div>
                 </EachContainer>
+                <p>Strikes</p>
             </Container>
         )
     
